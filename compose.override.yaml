@@ -3,6 +3,7 @@ services:
     container_name: techin8-profile-scraper
     volumes:
       - ./:/code
+      - /code/.venv
 
   database:
     container_name: techin8-rofile-scraper

@@ -69,9 +69,8 @@ push: format bruno auto-commit ## Ajoute, commit et pousse les modifications ver
 	$(call GIT_ON,git push origin "$(shell git branch --show-current)" --force-with-lease)
 
 # ----- PYTHON
-python-packages: ## Installe les packages Python et met à jour le fichier requirements.txt
-	$(call DOCKER_EXEC_APP,pip install --upgrade -r requirements.txt)
-	$(call DOCKER_EXEC_APP,pip freeze > requirements.txt)
+python-packages: ## Installe les packages Python avec uv
+	$(call DOCKER_EXEC_APP,uv sync --frozen)
 
 init_log:
 	@test -d ./var/log || mkdir -p ./var/log
@@ -145,7 +144,7 @@ docker-up: ## Lance les conteneurs Docker en arrière-plan et attend qu'ils soie
 	$(DOCKER_COMPOSE) up -d --wait
 	$(DOCKER_COMPOSE) ps -a
 
-docker-build: ## Construit et lance les conteneurs Docker, après avoir mis à jour les packages Python
+docker-build: ## Construit et lance les conteneurs Docker
 	$(DOCKER_COMPOSE) up -d --wait --build
 	$(DOCKER_COMPOSE) ps -a
 

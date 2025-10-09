@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - "Dockerfile"
-      - "requirements.txt"
+      - "pyproject.toml"
+      - "uv.lock"
       - ".github/workflows/builder.yaml"
 
 jobs:
