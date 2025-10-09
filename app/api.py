@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, Dict, Any
+from datetime import datetime
 import os
 from dotenv import load_dotenv
 import sys
@@ -58,7 +59,7 @@ async def health_check():
     return SuccessResponse(
         status=True,
         message="Service is healthy",
-        data={"timestamp": "2025-02-23T16:12:28Z"},
+        data={"timestamp": datetime.now().isoformat()},
     )
 
 
@@ -71,10 +72,10 @@ async def root():
 
 
 @app.get("/api/profile", response_model=SuccessResponse)
-async def profile(url: str, db: Session = Depends(get_db)):
+async def profile(url: str, force_scrapping: bool = False, db: Session = Depends(get_db)):
     try:
         service = ProfileService(db)
-        result = service.process_profile(url)
+        result = service.process_profile(url, force_scrapping)
 
         return SuccessResponse(
             status=True, message=result["message"], data=result["data"]

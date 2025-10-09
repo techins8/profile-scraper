@@ -6,6 +6,7 @@ from selenium.common.exceptions import TimeoutException, WebDriverException
 from app.services.extract_malt_info import ExtractMaltInfo
 import time
 import os
+import json
 from app.core.config import config
 import atexit
 import signal
@@ -67,10 +68,36 @@ class MaltScrapper:
                 use_subprocess=True,  # Changed to True for better process management
             )
             print("Chrome driver initialized successfully")
-            self.wait = WebDriverWait(self.driver, 20)  # Increased timeout
+            self.wait = WebDriverWait(self.driver, 20)
+
+            self._load_cookies()
         except Exception as e:
             print(f"Error initializing Chrome driver: {str(e)}")
             raise e
+
+    def _load_cookies(self):
+        if config.COOKIES:
+            try:
+                self.driver.get("https://www.malt.fr")
+
+                cookie_pairs = config.COOKIES.strip().split("; ")
+                for pair in cookie_pairs:
+                    if "=" in pair:
+                        name, value = pair.split("=", 1)
+                        cookie = {
+                            "name": name,
+                            "value": value,
+                            "domain": ".malt.fr",
+                            "path": "/"
+                        }
+                        try:
+                            self.driver.add_cookie(cookie)
+                        except Exception as e:
+                            print(f"Failed to add cookie {name}: {str(e)}")
+
+                print(f"Loaded {len(cookie_pairs)} cookies")
+            except Exception as e:
+                print(f"Error loading cookies: {str(e)}")
 
     def _cleanup(self, from_shutdown=False):
         """Internal cleanup method"""

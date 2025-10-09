@@ -9,6 +9,7 @@ class AppConfig(BaseSettings):
     SENTRY_DSN: str | None = None
     ENVIRONMENT: str = "local"
     WORKSPACE_BASE_PATH: str = "var"
+    COOKIES: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=(".env"),

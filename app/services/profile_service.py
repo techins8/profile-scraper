@@ -61,6 +61,7 @@ class ProfileService:
             "location": profile.location,
             "work_locations": profile.work_locations,
             "top_skills": profile.top_skills,
+            "skills": profile.skills,
             "response_rate": profile.response_rate,
             "languages": profile.languages,
             "availability": profile.availability,
@@ -72,7 +73,7 @@ class ProfileService:
             "status": profile.status,
         }
 
-    def process_profile(self, url: str) -> Dict[str, Any]:
+    def process_profile(self, url: str, force_scrapping: bool = False) -> Dict[str, Any]:
         url = url.split("?")[0]
 
         print(f"Processing profile: {url}")
@@ -90,7 +91,7 @@ class ProfileService:
         print("Existing profile: ", profile)
 
         if profile:
-            if profile.status == ProfileStatus.SCRAPPED:
+            if not force_scrapping and profile.status == ProfileStatus.SCRAPPED:
                 return {
                     "message": "Profile found in database",
                     "data": self.format_profile_response(profile),
@@ -113,7 +114,7 @@ class ProfileService:
 
             return {
                 "message": "Profile scraped and stored successfully",
-                "data": result,
+                "data": self.format_profile_response(profile),
             }
 
         except Exception as e:
