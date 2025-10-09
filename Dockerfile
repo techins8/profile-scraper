@@ -17,7 +17,7 @@ COPY ./requirements.txt /code/requirements.txt
 RUN pip install --upgrade pip setuptools; \
     pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
-FROM builder AS app
+FROM techins8pro/profile-scrapper:builder AS app
 
 WORKDIR /code
 

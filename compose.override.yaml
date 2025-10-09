@@ -1,10 +1,10 @@
 services:
   app:
-    container_name: techin8-malt
+    container_name: techin8-profile-scraper
     volumes:
       - ./:/code
 
   database:
-    container_name: techin8-malt-db
+    container_name: techin8-rofile-scraper
     ports:
       - ${POSTGRES_PORT:-3201}:5432

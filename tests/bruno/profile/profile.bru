@@ -5,20 +5,16 @@ meta {
 }
 
 get {
-  url: {{url}}/api/profile?url=https://www.malt.fr/profile/yassirazelmad?q=python&location=Paris,+France&city=Paris&administrativeAreaLevel1=%C3%8Ele-de-France&country=France&countryCode=FR&lat=48.8546&lon=2.3477&sourceComponent=search_block_freelancer_dashboard&searchid=67bcdadd06ef3224d314d40e
+  url: {{url}}/api/profile?url=https://www.malt.fr/profile/jabeurjaafar?reco=904a36f6-f2f0-11ef-bdec-7a662d440039&force_scrapping=1
   body: none
-  auth: none
+  auth: bearer
 }
 
 params:query {
-  url: https://www.malt.fr/profile/yassirazelmad?q=python
-  location: Paris, France
-  city: Paris
-  administrativeAreaLevel1: Île-de-France
-  country: France
-  countryCode: FR
-  lat: 48.8546
-  lon: 2.3477
-  sourceComponent: search_block_freelancer_dashboard
-  searchid: 67bcdadd06ef3224d314d40e
+  url: https://www.malt.fr/profile/jabeurjaafar?reco=904a36f6-f2f0-11ef-bdec-7a662d440039
+  force_scrapping: 1
+}
+
+auth:bearer {
+  token: gALnenB8xJI8qe2RIdBr39SdK5oxhEZQcbeBnUr/1hNo8fXCGMwa1SEWe9m9Xfkf
 }
