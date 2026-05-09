@@ -81,12 +81,12 @@ class ExtractMaltInfo:
                 By.CSS_SELECTOR,
                 '[data-testid="profile-header-section-top-skills-list"] .profile-edition__skills_item__tag__link__content',
             )
-            top_skills = [s.text for s in top_skills_elements]
+            top_skills = [s.text for s in top_skills_elements if s.text.strip()]
             skills_elements = self.driver.find_elements(
                 By.CSS_SELECTOR,
                 '[data-testid="profile-main-skill-set-selected-skills-list"] .profile-edition__skills_item__tag__link__content',
             )
-            skills = [s.text for s in skills_elements]
+            skills = [s.text for s in skills_elements if s.text.strip()]
         except Exception:
             print("Skills not found")
 
