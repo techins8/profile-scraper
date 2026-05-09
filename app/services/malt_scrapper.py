@@ -63,7 +63,7 @@ class MaltScrapper:
                 options=options,
                 browser_executable_path=options.binary_location,
                 driver_executable_path="/usr/bin/chromedriver",
-                version_main=119,
+                version_main=133,
                 headless=headless,
                 use_subprocess=True,  # Changed to True for better process management
             )
